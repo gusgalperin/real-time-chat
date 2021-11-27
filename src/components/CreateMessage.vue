@@ -20,8 +20,6 @@
 </template>
 
 <script>
-import { addMessage } from "../firebase/messages";
-
 export default {
   name: "CreateMessage",
   props: ["name"],
@@ -33,25 +31,23 @@ export default {
   },
   methods: {
     async createMessage() {
-      if (!this.name) {
-        await this.$router.push({ name: "login" });
-        return;
-      }
-
       if (this.newMessage) {
-        await addMessage({
+        const message = {
           message: this.newMessage,
           name: this.name,
           timestamp: Date.now(),
-        });
+        }
+
+        await this.$store.dispatch('messages/send',  { message })
 
         this.newMessage = null;
         this.errorText = null;
-      } else {
+      }
+      else {
         this.errorText = "primero ingrese el mensaje";
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

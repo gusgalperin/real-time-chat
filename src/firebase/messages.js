@@ -24,6 +24,8 @@ class Messages {
   };
 
   add = async (message) => {
+    console.log('saving message ' + message.message)
+    console.log(message)
     await addDoc(collection(this.db, "messages"), message);
   };
 }

@@ -41,14 +41,6 @@ export default {
   },
   async created() {
     this.messages = this.$store.getters["messages/all"];
-    // await messagesOnSnapshot((id, doc) => {
-    //   this.messages.push({
-    //     id: id,
-    //     name: doc.name,
-    //     message: doc.message,
-    //     timestamp: moment(doc.timestamp).format('LTS')
-    //   })
-    // })
   },
 };
 </script>

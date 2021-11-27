@@ -1,4 +1,4 @@
-import { messagesOnSnapshot } from "@/firebase/messages";
+import { messagesOnSnapshot, addMessage } from "@/firebase/messages";
 import moment from "moment";
 
 const state = {
@@ -24,6 +24,10 @@ const actions = {
       commit("SET_MESSAGE", { message });
     });
   },
+  async send({ commit }, message) {
+    console.log(message)
+    await addMessage(message.message)
+  }
 };
 
 const getters = {
