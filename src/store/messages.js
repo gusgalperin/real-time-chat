@@ -1,36 +1,35 @@
-import { messagesOnSnapshot } from '@/firebase/messages'
-import moment from 'moment'
+import { messagesOnSnapshot } from "@/firebase/messages";
+import moment from "moment";
 
 const state = {
-    messages: []
-}
+  messages: [],
+};
 
 const mutations = {
-    SET_MESSAGE (state, { message }) {
-        state.messages.push(message)
-    }
-}
+  SET_MESSAGE(state, { message }) {
+    state.messages.push(message);
+  },
+};
 
 const actions = {
-    async get ({commit}) {
-        await messagesOnSnapshot((id, doc) => {
+  async get({ commit }) {
+    await messagesOnSnapshot((id, doc) => {
+      const message = {
+        id: id,
+        name: doc.name,
+        message: doc.message,
+        timestamp: moment(doc.timestamp).format("LTS"),
+      };
 
-            const message = {
-                id: id,
-                name: doc.name,
-                message: doc.message,
-                timestamp: moment(doc.timestamp).format('LTS')
-            }
-
-            commit('SET_MESSAGE', { message })
-        })
-    }
-}
+      commit("SET_MESSAGE", { message });
+    });
+  },
+};
 
 const getters = {
-    all: (state) => {
-        return state.messages
-    }
-}
+  all: (state) => {
+    return state.messages;
+  },
+};
 
-export default { namespaced: true, state, mutations, actions, getters }
+export default { namespaced: true, state, mutations, actions, getters };
